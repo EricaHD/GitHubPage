@@ -1,14 +1,14 @@
 import { textColor } from '../utils/colors';
-import titleBackground from '../../images/titleBackground.jpeg';
+import background from '../../images/background.jpeg';
 
 export default {
-  titleBackgroundImage: {
-    backgroundImage: `url(${titleBackground})`,
+  backgroundImage: {
+    backgroundImage: `url(${background})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     width: '100vw',
-    height: '145vw',
+    height: '70vw',
     padding: 5,
   },
   titleText: {

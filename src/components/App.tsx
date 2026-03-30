@@ -4,7 +4,7 @@ import styles from '../styles/App';
 
 const App = () => {
   return (
-    <Box sx={styles.titleBackgroundImage}>
+    <Box sx={styles.backgroundImage}>
       <Typography sx={styles.titleText}>
         GitHub Page
       </Typography>
