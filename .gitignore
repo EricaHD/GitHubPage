@@ -1,0 +1,11 @@
+# Mac
+.DS_Store
+
+# JetBrains IDE
+.idea
+
+# Node
+node_modules
+
+# Test coverage
+coverage
