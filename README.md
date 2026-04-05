@@ -40,6 +40,6 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 
 ## Ideas for Improvements
 
-[ ] Upgrade to React 19
-[ ] Add Python backend with Flask microservice; host with Vercel free tier
-[ ] Add end-to-end testing
+- [ ] Upgrade to React 19
+- [ ] Add Python backend with Flask microservice; host with Vercel free tier
+- [ ] Add end-to-end testing
