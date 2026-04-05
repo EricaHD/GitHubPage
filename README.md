@@ -37,3 +37,9 @@ To run unit tests locally:
 When a commit is pushed to the `main` branch, dependencies are installed via `npm ci`, unit tests are run via `npm test`, the project is built using `npm run build`, the `dist` directory is uploaded, and the deploy occurs.  These steps are outlined in the GitHub Action file located at `.github/workflows/release.yml`.
 
 Note that `npm run build` is a script defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub pages looks for.  Hence an important step of the GitHub action described in the paragraph above is uploading the `dist` directory.
+
+## Ideas for Improvements
+
+[ ] Upgrade to React 19
+[ ] Add Python backend with Flask microservice; host with Vercel free tier
+[ ] Add end-to-end testing
