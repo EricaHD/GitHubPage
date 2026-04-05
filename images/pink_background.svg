@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="dot1" cx="40%" cy="40%">
+      <stop offset="0%" style="stop-color:#e8d9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8d9ff;stop-opacity:0.3" />
+    </radialGradient>
+
+    <radialGradient id="dot2" cx="30%" cy="50%">
+      <stop offset="0%" style="stop-color:#d4b8ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d4b8ff;stop-opacity:0.2" />
+    </radialGradient>
+
+    <radialGradient id="dot3" cx="45%" cy="45%">
+      <stop offset="0%" style="stop-color:#c9a8ff;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#c9a8ff;stop-opacity:0.1" />
+    </radialGradient>
+
+    <linearGradient id="meshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fefbff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f8f4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0e8ff;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="8" />
+    </filter>
+  </defs>
+
+  <!-- Main background gradient -->
+  <rect width="1200" height="800" fill="url(#meshGrad)"/>
+
+  <!-- Large soft circles creating organic pattern -->
+  <circle cx="200" cy="150" r="200" fill="url(#dot1)" filter="url(#softBlur)"/>
+  <circle cx="950" cy="180" r="250" fill="url(#dot2)" filter="url(#softBlur)"/>
+  <circle cx="600" cy="550" r="280" fill="url(#dot3)" filter="url(#softBlur)"/>
+  <circle cx="100" cy="600" r="180" fill="#d9c8ff" opacity="0.4" filter="url(#softBlur)"/>
+  <circle cx="1050" cy="650" r="220" fill="#e3d4ff" opacity="0.35" filter="url(#softBlur)"/>
+
+  <!-- Medium circles for layering -->
+  <circle cx="550" cy="200" r="150" fill="#dcc8ff" opacity="0.3" filter="url(#softBlur)"/>
+  <circle cx="350" cy="750" r="190" fill="#c9a8ff" opacity="0.25" filter="url(#softBlur)"/>
+
+  <!-- Accent dots scattered pattern -->
+  <circle cx="150" cy="300" r="25" fill="#d4b8ff" opacity="0.6"/>
+  <circle cx="400" cy="250" r="20" fill="#e8d9ff" opacity="0.5"/>
+  <circle cx="800" cy="400" r="30" fill="#c9a8ff" opacity="0.4"/>
+  <circle cx="1100" cy="250" r="22" fill="#d9c8ff" opacity="0.5"/>
+  <circle cx="300" cy="550" r="28" fill="#e3d4ff" opacity="0.45"/>
+  <circle cx="900" cy="700" r="25" fill="#d4b8ff" opacity="0.5"/>
+  <circle cx="650" cy="750" r="20" fill="#c9a8ff" opacity="0.4"/>
+  <circle cx="450" cy="680" r="24" fill="#e8d9ff" opacity="0.45"/>
+</svg>

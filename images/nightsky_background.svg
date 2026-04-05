@@ -1,0 +1,64 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      @keyframes wave1 {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(-50px, -20px); }
+        100% { transform: translate(0, 0); }
+      }
+      @keyframes wave2 {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(50px, 15px); }
+        100% { transform: translate(0, 0); }
+      }
+      @keyframes sparkle {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+      }
+      .wave1 { animation: wave1 8s ease-in-out infinite; }
+      .wave2 { animation: wave2 10s ease-in-out infinite; }
+      .sparkle { animation: sparkle 3s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Background gradient -->
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+
+  <!-- Wave 1 -->
+  <g class="wave1">
+    <path d="M0,600 Q300,550 600,600 T1200,600 L1200,800 L0,800 Z"
+          fill="#2a4a6e" opacity="0.6"/>
+    <path d="M0,650 Q300,600 600,650 T1200,650 L1200,800 L0,800 Z"
+          fill="#1f3a54" opacity="0.4"/>
+  </g>
+
+  <!-- Wave 2 -->
+  <g class="wave2">
+    <path d="M0,550 Q400,480 800,550 T1600,550 L1600,800 L0,800 Z"
+          fill="#3d5a7d" opacity="0.5"/>
+  </g>
+
+  <!-- Sparkle elements -->
+  <circle class="sparkle" cx="150" cy="200" r="2" fill="#e0d5ff" style="animation-delay: 0s"/>
+  <circle class="sparkle" cx="300" cy="150" r="1.5" fill="#b8a8e0" style="animation-delay: 0.5s"/>
+  <circle class="sparkle" cx="500" cy="300" r="2" fill="#c9bbf0" style="animation-delay: 1s"/>
+  <circle class="sparkle" cx="700" cy="100" r="1" fill="#e0d5ff" style="animation-delay: 1.5s"/>
+  <circle class="sparkle" cx="900" cy="250" r="2" fill="#d4c4f5" style="animation-delay: 2s"/>
+  <circle class="sparkle" cx="1050" cy="180" r="1.5" fill="#b8a8e0" style="animation-delay: 0.3s"/>
+  <circle class="sparkle" cx="200" cy="400" r="1" fill="#e0d5ff" style="animation-delay: 1.2s"/>
+  <circle class="sparkle" cx="1100" cy="450" r="2" fill="#c9bbf0" style="animation-delay: 0.8s"/>
+</svg>

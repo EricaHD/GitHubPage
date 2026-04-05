@@ -1,5 +1,5 @@
 import { textColor } from '../utils/colors';
-import background from '../../images/background.jpeg';
+import background from '../../images/nightsky_background.svg';
 
 export default {
   backgroundImage: {
@@ -18,6 +18,7 @@ export default {
     color: textColor,
   },
   subtitleText: {
+    color: textColor,
     fontStyle: 'italic',
   },
 };

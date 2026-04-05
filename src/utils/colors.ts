@@ -1,1 +1,1 @@
-export const textColor = '#202020';
+export const textColor = '#ffffff';
