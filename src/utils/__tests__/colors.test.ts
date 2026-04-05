@@ -1,5 +1,5 @@
 import { textColor } from '../colors';
 
 test('Text color is set correctly', () => {
-  expect(textColor).toBe('#202020');
+  expect(textColor).toBe('#ffffff');
 });
