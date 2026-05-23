@@ -4,6 +4,7 @@
   "description": "GitHub Page",
   "author": "Erica Dominic",
   "license": "ISC",
+  "proxy": "http://localhost:5001",
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.ts",
     "build": "webpack --config webpack.prod.ts",

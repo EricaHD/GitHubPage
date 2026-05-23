@@ -5,6 +5,14 @@ const common_dev = require('./webpack.common.ts');
 module.exports = merge_dev(common_dev, {
   mode: 'development',
   devServer: {
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:5001',
+        pathRewrite: { '^/api': '/api' },
+        changeOrigin: true,
+      },
+    ],
     historyApiFallback: true,
     static: path_dev.resolve(__dirname, './dist'),
     compress: true,
