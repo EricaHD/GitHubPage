@@ -1,6 +1,7 @@
 const path_dev = require('path');
 const { merge: merge_dev } = require('webpack-merge');
 const common_dev = require('./webpack.common.ts');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = merge_dev(common_dev, {
   mode: 'development',
@@ -19,4 +20,11 @@ module.exports = merge_dev(common_dev, {
     hot: true,
     port: 8080,
   },
+  // Load .env.local file and inject environment variables at build time
+  plugins: [
+    new Dotenv({
+      path: './.env.local',
+      safe: false,
+    }),
+  ],
 });

@@ -1,5 +1,4 @@
 const path_common = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   // Where webpack looks to start building the bundle
@@ -68,12 +67,4 @@ module.exports = {
       },
     ],
   },
-
-  // Load .env.local file and inject environment variables at build time
-  plugins: [
-    new Dotenv({
-      path: './.env.local',
-      safe: false,
-    }),
-  ],
 };
