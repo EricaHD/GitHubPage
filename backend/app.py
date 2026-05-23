@@ -19,5 +19,9 @@ def get_data():
     return {'message': 'This is a data from the backend.'}, 200
 
 if __name__ == '__main__':
+    # We use debug_mode in development because it gives us
+    # - auto-reload (the server automatically restarts when we make changes to the code)
+    # - an interactive debugger in the browser
+    # - better error messages in the browser
     debug_mode = os.getenv('FLASK_ENV') == 'development'
     app.run(debug=debug_mode, port=5001)
