@@ -20,11 +20,4 @@ module.exports = merge_dev(common_dev, {
     hot: true,
     port: 8080,
   },
-  // Load .env.local file and inject environment variables at build time
-  plugins: [
-    new Dotenv({
-      path: './.env.local',
-      safe: false,
-    }),
-  ],
 });
