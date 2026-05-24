@@ -6,14 +6,6 @@ const Dotenv = require('dotenv-webpack');
 module.exports = merge_dev(common_dev, {
   mode: 'development',
   devServer: {
-    proxy: [
-      {
-        context: ['/api'],
-        target: 'http://localhost:5001',
-        pathRewrite: { '^/api': '/api' },
-        changeOrigin: true,
-      },
-    ],
     historyApiFallback: true,
     static: path_dev.resolve(__dirname, './dist'),
     compress: true,

@@ -9,4 +9,4 @@ def health():
 
 @app.route('/api/data', methods=['GET'], cors=True)
 def get_data():
-    return {'message': 'This is a data from the backend.'}
+    return {'message': 'This is data from the backend.'}

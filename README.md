@@ -94,13 +94,32 @@ There are likely other one-time installations that I've accidentally omitted fro
 
 ## Local Development
 
-To run app locally, run `npm start` in the main directory.  Then http://localhost:8080 should open automatically.
+To run the app locally, open two terminal windows.
 
-To make changes to the frontend, you can make changes to the TypeScript files and http://localhost:8080 should automatically reload and display the changes.  When changes are ready, you can commit and push your changes to the GitHub repository.  The webpage is built and deployed automatically by a GitHub Action (see section below for details).
+In terminal 1:
+1. Navigate to backend directory with `cd GitHubPage/backend/`
+2. Activate the Python virtual environment with `source venv/bin/activate`
+3. Start the backend server with `chalice local`
 
-To make changes to the backend, you can make changes to the Python files, but in order to see the effect of the changes you must deploy the changes to the AWS Lambda that contains the backend code.  To do that, you navigate to the project directory and run `aws login` to authenticate followed by `chalice deploy --stage prod`.  If you ever need to delete infrastructure created by AWS Chalice (i.e. the lambda and API gateway), you can run `chalice delete --stage prod`.  If you're not sure the AWS Lambda is working, you can run `curl https://vsqpljo4qk.execute-api.us-east-1.amazonaws.com/v1/api/health` from your terminal.
+In terminal 2:
+1. Navigate to main project directory with `cd GitHubPage/`
+2. Start the Webpack DevServer with `npm start`
+3. http://localhost:8080 should open automatically
 
-To run unit tests locally, run `npm test` in the main directory.
+When you make changes to the frontend, http://localhost:8080 should automatically reload and display the changes.  When you make changes to the backend, you will need to manually refresh http://localhost:8080 for changes to appear.  In neither case should you have to restart the server.
+
+To run unit tests locally, run `cd GitHubPage && npm test`.
+
+## Deploying Changes
+
+To ship changes to the frontend, you can commit and push your changes to the GitHub repository.  The webpage is built and deployed automatically by a GitHub Action.
+
+To ship changes to the backend, you must deploy the changes to the AWS Lambda that contains the backend code using these commands:
+```bash
+cd GitHubPage/backend/
+aws login
+chalice deploy --stage prod
+```
 
 ## How the GitHub Page Works
 
@@ -115,6 +134,17 @@ The complete list of steps is outlined in the GitHub Action file `.github/workfl
 
 Note that `npm run build` is a script defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub pages looks for.  Hence an important step of the GitHub action described in the paragraph above is uploading the `dist` directory.
 
+## Debugging & Deleting the AWS Infrastructure
+
+If you're not sure the AWS Lambda is working, you can run `curl https://vsqpljo4qk.execute-api.us-east-1.amazonaws.com/v1/api/health` from your terminal.
+
+If you ever need to delete infrastructure created by AWS Chalice (i.e. the lambda and API gateway), you can run these commands:
+```bash
+cd GitHubPage/backend/
+aws login
+chalice delete --stage prod
+```
+
 ## Ideas for Improvements
 
 - [ ] Upgrade to React 19
@@ -122,6 +152,5 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 - [ ] Add testing for Python backend (e.g. with pytest)
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
-- [ ] Make a local server option so we don't have to deploy lambda to test backend changes
 - [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
 - [ ] Have Python backend pull from database that is available in AWS free tier, possilby using an ORM like SQLAlchemy
