@@ -132,7 +132,7 @@ When a commit is pushed to the `main` branch, a GitHub Action executes several s
 
 The complete list of steps is outlined in the GitHub Action file `.github/workflows/release.yml`.
 
-Note that `npm run build` is a script defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub pages looks for.  Hence an important step of the GitHub action described in the paragraph above is uploading the `dist` directory.
+Note that `npm run build` is a script defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub Pages looks for.  Hence an important step of the GitHub action described in the paragraph above is uploading the `dist` directory.
 
 ## Debugging & Deleting the AWS Infrastructure
 
@@ -153,4 +153,4 @@ chalice delete --stage prod
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
 - [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
-- [ ] Have Python backend pull from database that is available in AWS free tier, possilby using an ORM like SQLAlchemy
+- [ ] Have Python backend pull from database that is available in AWS free tier, possibly using an ORM like SQLAlchemy
