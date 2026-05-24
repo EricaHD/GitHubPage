@@ -124,3 +124,4 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
 - [ ] Make a local server option so we don't have to deploy lambda to test backend changes
 - [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
+- [ ] Have Python backend pull from database that is available in AWS free tier, possilby using an ORM like SQLAlchemy
