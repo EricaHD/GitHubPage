@@ -9,3 +9,10 @@ node_modules
 
 # Test coverage
 coverage
+
+# Any __pycache__ directory
+__pycache__
+
+# Chalice deployments directory
+backend/.chalice/deployed/
+backend/.chalice/deployments/
