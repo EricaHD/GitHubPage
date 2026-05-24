@@ -35,6 +35,11 @@ This is a repository that can serve as boilerplate for a GitHub page.
     <td>Framework for writing serverless apps that run on AWS Lambdas</td>
   </tr>
   <tr>
+    <td>Infrastructure</td>
+    <td>AWS Lambda</td>
+    <td>Serverless compute service</td>
+  </tr>
+  <tr>
     <td>Testing</td>
     <td>Jest</td>
     <td>Frontend unit testing</td>
@@ -113,8 +118,9 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 ## Ideas for Improvements
 
 - [ ] Upgrade to React 19
+- [ ] Don't hardcode API gateway URL in frontend
 - [ ] Add testing for Python backend (e.g. with pytest)
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
-- [ ] Don't hardcode API gateway URL in frontend
 - [ ] Make a local server option so we don't have to deploy lambda to test backend changes
+- [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
