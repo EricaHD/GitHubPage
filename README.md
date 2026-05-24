@@ -33,6 +33,7 @@ Frontend
 Backend
 1. Navigate to `GitHubPage/backend` and create a virtual environment with `python -m venv venv` and activate the virtual environment with `source venv/bin/activate` and install dependencies with `pip install -r requirements.txt`
 2. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you don't already have it
+3. Create an [AWS account](https://aws.amazon.com/console/) (AWS Lambdas have a generous limit in their free tier, so you will not have to spend money)
 
 There are likely other one-time installations that I've accidentally omitted from this list.
 
