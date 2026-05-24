@@ -4,19 +4,69 @@
 
 This is a repository that can serve as boilerplate for a GitHub page.
 
-This project uses
-- TypeScript (for frontend)
-- React (for UI)
-- [Material UI](https://mui.com/material-ui/) (an open-source React component library)
-- Babel (for JavaScript transpiling)
-- Webpack (for bundling)
-- GitHub Actions (for deploying)
-- Pre-commit (for code quality checks)
-- Prettier (for autoformatting)
-- Eslint (for linting)
-- Jest (for testing)
-- Python (for backend)
-- AWS Chalice (Python framework for writing serverless apps that run on AWS Lambdas)
+## Tech Stack
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Technology</th>
+    <th>Purpose</th>
+  </tr>
+  <tr>
+    <td rowspan="3">Frontend</td>
+    <td>TypeScript</td>
+    <td>Frontend programming language</td>
+  </tr>
+  <tr>
+    <td>React</td>
+    <td>UI logic and components</td>
+  </tr>
+  <tr>
+    <td>Material UI</td>
+    <td>React component library</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Backend</td>
+    <td>Python</td>
+    <td>Backend programming language</td>
+  </tr>
+  <tr>
+    <td>AWS Chalice</td>
+    <td>Framework for writing serverless apps that run on AWS Lambdas</td>
+  </tr>
+  <tr>
+    <td>Testing</td>
+    <td>Jest</td>
+    <td>Frontend unit testing</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Code Quality</td>
+    <td>Eslint</td>
+    <td>TypeScript linting</td>
+  </tr>
+  <tr>
+    <td>Prettier</td>
+    <td>TypeScript autoformatting</td>
+  </tr>
+  <tr>
+    <td>Pre-commit</td>
+    <td>Automated code quality checks</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Builds</td>
+    <td>Babel</td>
+    <td>JavaScript transpiling</td>
+  </tr>
+  <tr>
+    <td>Webpack</td>
+    <td>JavaScript module bundling</td>
+  </tr>
+  <tr>
+    <td>Deploys</td>
+    <td>GitHub Actions</td>
+    <td>CI/CD and automated deployment</td>
+  </tr>
+</table>
 
 ## Setup
 
@@ -63,6 +113,7 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 ## Ideas for Improvements
 
 - [ ] Upgrade to React 19
+- [ ] Add testing for Python backend (e.g. with pytest)
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
 - [ ] Don't hardcode API gateway URL in frontend
