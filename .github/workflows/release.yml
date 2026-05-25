@@ -46,14 +46,17 @@ jobs:
 
       # Backend deployment
       - name: Set up Python
+        if: contains(github.event.head_commit.modified, 'backend/')
         uses: actions/setup-python@v4
         with:
           python-version: '3.14'
       - name: Install backend dependencies
+        if: contains(github.event.head_commit.modified, 'backend/')
         run: |
           cd ./backend
           pip install -r requirements.txt
       - name: Deploy backend to AWS Lambda
+        if: contains(github.event.head_commit.modified, 'backend/')
         run: |
           cd ./backend
           chalice deploy --stage prod

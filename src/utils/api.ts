@@ -1,7 +1,7 @@
 // process.env.NODE_ENV is set by Webpack's DefinePlugin at compile time
 // The value is determined by the `mode` setting in webpack.dev.ts and webpack.prod.ts
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://vsqpljo4qk.execute-api.us-east-1.amazonaws.com/v1'
+  ? 'https://pu5sgwc7n1.execute-api.us-east-1.amazonaws.com/v1'
   : 'http://localhost:8000';
 
 export const fetchFromAPI = async (endpoint: string, options?: RequestInit) => {
