@@ -77,18 +77,114 @@ This is a repository that can serve as boilerplate for a GitHub page.
 
 These steps only need to be done once (or whenever dependencies change).
 
-General
-1. Clone this repository
+### AWS Console
+
+1. Create an [AWS account](https://aws.amazon.com/console/) (AWS Lambdas have a generous limit in their free tier, so you will not have to spend money)
+2. Create an OIDC Identity Provider in AWS
+   - Go to the AWS IAM Console
+   - Navigate to "Identity providers"
+   - Click "Add provider"
+   - Select "OpenID Connect"
+   - Fill in the provider URL with `https://token.actions.githubusercontent.com`
+   - Fillin the audience with `sts.amazonaws.com`
+   - Click "Add provider"
+3. Create an IAM Role for GitHub Actions
+   - Go to the AWS IAM Console
+   - Navigate to "Roles"
+   - Click "Create role"
+   - Select "Web identity" as the trusted entity type
+   - Select the identity provider you just created: `token.actions.githubusercontent.com`
+   - Select the audience `sts.amazonaws.com`
+   - Enter your GitHub organization (can just be your GitHub account name if you are not part of an organization)
+   - Click "Next"
+   - Just for now you can select just the `AWSLambda_FullAccess` policy (we will adjust this shortly)
+   - Click "Next"
+   - Give the role a name (e.g. `github-actions-deploy-role`)
+   - Click "Create role"
+   - Make sure you're viewing the role, specifically the "Permissions" tab
+   - Click the "Add permissions" dropdown and select "Create inline policy"
+   - Select "JSON" for the policy editor and paste in this JSON (make sure you subsitute in your real 12-digit `AWS_ACCOUNT_ID`):
+   ```
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Action": [
+           "iam:GetRole",
+           "iam:PassRole",
+           "iam:PutRolePolicy",
+           "apigateway:POST",
+           "apigateway:PATCH"
+         ],
+         "Resource": "*"
+       },
+       {
+         "Effect": "Allow",
+         "Action": [
+           "lambda:GetFunction",
+           "lambda:GetFunctionConfiguration",
+           "lambda:UpdateFunctionCode",
+           "lambda:UpdateFunctionConfiguration",
+           "lambda:ListTags",
+           "lambda:DeleteFunctionConcurrency",
+           "lambda:GetPolicy",
+           "lambda:AddPermission"
+         ],
+         "Resource": "arn:aws:lambda:us-east-1:AWS_ACCOUNT_ID:function:githubpage-prod"
+       }
+     ]
+   }
+   ```
+   - Click "Next"
+   - Enter a policy name (e.g. `update_lambda`)
+   - Click "Create policy"
+   - Make sure you're viewing the role, specifically the "Permissions" tab
+   - Select the `AWSLambda_FullAccess` and click "Remove"
+   - Confirm the deletion
+4. Configure the trust relationship
+   - Go back to the role you just created
+   - Click on the "Trust relationships" tab
+   - Click "Edit trust policy"
+   - Replace the existing policy with the following (make sure you subsitute in your real 12-digit `AWS_ACCOUNT_ID` and your real `GITHUB_ACCOUNT_NAME`)
+   ```
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+         },
+         "Action": "sts:AssumeRoleWithWebIdentity",
+         "Condition": {
+           "StringEquals": {
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+           },
+           "StringLike": {
+             "token.actions.githubusercontent.com:sub": "repo:GITHUB_ACCOUNT_NAME/GitHubPage:ref:refs/heads/main"
+           }
+         }
+       }
+     ]
+   }
+   ```
+   - Click "Update policy"
+   - Take note of the role ARN, which you will enter into a GitHub secret in the next section
+
+### GitHub
+
+1. Make your own copy of this repository
+2. Navigate to `https://github.com/<YourUserName>/GitHubPage/settings/pages` and select `GitHub Actions` from the dropdown menu in the "Build and deployment" section.  You'll need to create your own workflow; it should match the contents of `.github/workflows/release.yml`
+3. Navigate to `https://github.com/EricaHD/GitHubPage/settings/secrets/actions` and click "New repository secret".  Enter the name `OIDC_ROLE_TO_ASSUME` and the value `arn:aws:iam::<AWS_ACCOUNT_ID>:role/<ROLE_NAME>`, using your real 12-digit `AWS_ACCOUNT_ID` and the name of the role created in the previous section.  This will allow the GitHub Action (see `${{ secrets.OIDC_ROLE_TO_ASSUME }}` in GitHubPage/.github/workflows/release.yml) to assume a role in your AWS account that has permissions to deploy the backend
+
+### Local
+
+1. Create a local copy of this repository
 2. Run `pre-commit install` to make sure pre-commit hooks run automatically on each commit
-3. Navigate to `https://github.com/<YourUserName>/GitHubPage/settings/pages` and select `GitHub Actions` from the dropdown menu in the "Build and deployment" section.  You'll need to create your own workflow; it should match the contents of `.github/workflows/release.yml`
-
-Frontend
-1. Navigate to `GitHubPage` and install frontend dependencies with `npm install`
-
-Backend
-1. Navigate to `GitHubPage/backend` and create a virtual environment with `python -m venv venv` and activate the virtual environment with `source venv/bin/activate` and install dependencies with `pip install -r requirements.txt`
-2. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you don't already have it
-3. Create an [AWS account](https://aws.amazon.com/console/) (AWS Lambdas have a generous limit in their free tier, so you will not have to spend money)
+3. Navigate to `GitHubPage` and install frontend dependencies with `npm install`
+4. Navigate to `GitHubPage/backend` and create a virtual environment with `python -m venv venv` and activate the virtual environment with `source venv/bin/activate` and install dependencies with `pip install -r requirements.txt`
+5. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you don't already have it
 
 There are likely other one-time installations that I've accidentally omitted from this list.
 
@@ -136,7 +232,7 @@ Note that `npm run build` is a script defined in `package.json`.  The script inv
 
 ## Debugging & Deleting the AWS Infrastructure
 
-If you're not sure the AWS Lambda is working, you can run `curl https://vsqpljo4qk.execute-api.us-east-1.amazonaws.com/v1/api/health` from your terminal.
+If you're not sure the AWS Lambda is working, you can run `curl https://pu5sgwc7n1.execute-api.us-east-1.amazonaws.com/v1/api/health` from your terminal.
 
 If you ever need to delete infrastructure created by AWS Chalice (i.e. the lambda and API gateway), you can run these commands:
 ```bash
@@ -148,9 +244,9 @@ chalice delete --stage prod
 ## Ideas for Improvements
 
 - [ ] Upgrade to React 19
-- [ ] Don't hardcode API gateway URL in frontend
+- [ ] Don't hardcode API gateway URL in frontend (e.g. grep for `pu5sgwc7n1` -- this should not be hardcoded)
 - [ ] Add testing for Python backend (e.g. with pytest)
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
-- [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
 - [ ] Have Python backend pull from database that is available in AWS free tier, possibly using an ORM like SQLAlchemy
+- [ ] Use terraform to do some of the AWS setup described above
