@@ -2,15 +2,24 @@ name: Release
 on:
   push:
     branches: ['main']
+
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   test-build-deploy:
     runs-on: macos-latest
+    # Required for OIDC
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+
     steps:
+      # Setup
       - name: Check out repository onto the runner
         uses: actions/checkout@v4
       - name: Set up Node
@@ -19,10 +28,37 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: npm ci
+
+      # Test
       - name: Run tests
         run: npm test
+
+      # Build
       - name: Build
         run: npm run build
+
+      # OIDC authentication
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+
+      # Backend deployment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Install backend dependencies
+        run: |
+          cd GitHubPage/backend
+          pip install -r requirements.txt
+      - name: Deploy backend to AWS Lambda
+        run: |
+          cd GitHubPage/backend
+          chalice deploy --stage prod
+
+      # Frontend deployment
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload dist directory
