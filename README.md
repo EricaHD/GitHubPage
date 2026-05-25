@@ -153,4 +153,4 @@ chalice delete --stage prod
 - [ ] Add end-to-end testing
 - [ ] Pre-commit hooks for Python (black autoformatting, mypy type checking)
 - [ ] Make deployment of new backend code via AWS Chalice part of GitHub Action
-- [ ] Have Python backend pull from database that is available in AWS free tier (possibly using an ORM like SQLAlchemy)
+- [ ] Have Python backend pull from database that is available in AWS free tier, possibly using an ORM like SQLAlchemy
