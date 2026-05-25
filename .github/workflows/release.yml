@@ -51,11 +51,11 @@ jobs:
           python-version: '3.14'
       - name: Install backend dependencies
         run: |
-          cd GitHubPage/backend
+          cd ./backend
           pip install -r requirements.txt
       - name: Deploy backend to AWS Lambda
         run: |
-          cd GitHubPage/backend
+          cd ./backend
           chalice deploy --stage prod
 
       # Frontend deployment
