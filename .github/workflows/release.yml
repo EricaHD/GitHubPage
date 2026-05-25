@@ -39,6 +39,7 @@ jobs:
 
       # OIDC authentication
       - name: Configure AWS credentials via OIDC
+        if: contains(github.event.head_commit.modified, 'backend/')
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.OIDC_ROLE_TO_ASSUME }}
