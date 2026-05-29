@@ -208,27 +208,11 @@ To run unit tests locally, run `cd GitHubPage && npm test`.
 
 ## Deploying Changes
 
-To ship changes to the frontend, you can commit and push your changes to the GitHub repository.  The webpage is built and deployed automatically by a GitHub Action.
+To ship your changes, you can commit and push to the GitHub repository.  A GitHub Action will deploy the backend changes to the AWS Lambda via AWS Chalice (but only if code in `GitHubPage/backend/` was changed), and it will build/deploy the frontend to GitHub Pages.  You can see the detailed steps of the GitHub Action in the file `.github/workflows/release.yml`.
 
-To ship changes to the backend, you must deploy the changes to the AWS Lambda that contains the backend code using these commands:
-```bash
-cd GitHubPage/backend/
-aws login
-chalice deploy --stage prod
-```
+## How the GitHub Pages Work
 
-## How the GitHub Page Works
-
-When a commit is pushed to the `main` branch, a GitHub Action executes several steps, including:
-1. Dependencies are installed via `npm ci`
-2. Unit tests are run via `npm test`
-3. The project is built using `npm run build`
-4. The `dist` directory is uploaded
-5. The deploy occurs
-
-The complete list of steps is outlined in the GitHub Action file `.github/workflows/release.yml`.
-
-Note that `npm run build` is a script defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub Pages looks for.  Hence an important step of the GitHub action described in the paragraph above is uploading the `dist` directory.
+Part of the GitHub Action is to run `npm run build`, which is defined in `package.json`.  The script invokes Webpack, which bundles JavaScript files for use in a browser.  You can see the details of Webpack's process in `webpack.common.ts`.  Most notably, the `bundle.js` file is output in the `dist` directory.  The `dist` directory also contains an `index.html` file that relies on this bundle, and it is the `index.html` file that GitHub Pages looks for.  The GitHub Action also uploads the `dist` directory so it is accessible to GitHub Pages.
 
 ## Debugging & Deleting the AWS Infrastructure
 
